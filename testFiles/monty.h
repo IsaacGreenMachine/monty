@@ -16,9 +16,9 @@
  */
 typedef struct stack_s
 {
-int n;
-struct stack_s *prev;
-struct stack_s *next;
+        int n;
+        struct stack_s *prev;
+        struct stack_s *next;
 } stack_t;
 
 /**
@@ -31,8 +31,8 @@ struct stack_s *next;
  */
 typedef struct instruction_s
 {
-char *opcode;
-void (*f)(stack_t **stack, unsigned int line_number);
+        char *opcode;
+        void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
 extern char **currentInstruction;
@@ -41,6 +41,5 @@ void setExternToInstruction(char *line, int lineNum, instruction_t funcList[]);
 void pushOp(stack_t **stack, unsigned int line_number);
 void pallOp(stack_t **stack, unsigned int line_number);
 int checkWord(char *word, instruction_t funcList[]);
-void goOp(char *opName, instruction_t funcList[], int lineNum, stack_t **head);
-void freeList(stack_t *head);
+void activateOp(char *opName, instruction_t funcList[], int lineNum, stack_t **head);
 #endif
