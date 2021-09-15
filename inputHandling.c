@@ -92,7 +92,6 @@ for (i = 0; i <= 5; i++)
 /*printf("strcmping %s\n", funcList[i].opcode);*/
 if (strcmp(word, funcList[i].opcode) == 0)
 {
-printf("w1: %s\n", word);
 currentInstruction[0] = strdup(word);
 /*printf("currentInstruction[0]: %s\n", currentInstruction[0]);*/
 if (strcmp(word, "push") == 0)
@@ -100,7 +99,6 @@ if (strcmp(word, "push") == 0)
 word = strtok(NULL, "\n ");
 if (strcmp(word, "0") == 0 || atoi(word) != 0)
 {
-printf("w2: %s\n", word);
 currentInstruction[1] = strdup(word);
 /*printf("currentInstruction[1]: %s\n", currentInstruction[1]);*/
 return (1);
