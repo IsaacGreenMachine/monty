@@ -6,6 +6,13 @@
  *
  * Return: appropriate error
  */
+
+/*
+ * TODO
+ *in push if int is not an int or if no argument given to push 
+ *	print the error message L<line_number>: usage: push integer, 
+ *	followed by a new line, and exit with the status EXIT_FAILURE
+ */
 int main(int ac, char **av)
 {
 if (ac != 2)

@@ -14,7 +14,14 @@ char *buf = NULL;
 FILE *file;
 stack_t *head = NULL;
 file = fopen(fileName, "r");
-instruction_t funcList[] = {{"push", pushOp}, {"pall", pallOp}};
+instruction_t funcList[] = {
+	{"push", pushOp}, 
+	{"pall", pallOp},
+	{"pop", popOp},
+        {"swap", swapOp},
+	{"add", addOp},
+        {"nop", nopOp}
+};
 while (charCount != -1)
 {
 charCount = getline(&buf, &bufSize, file);
@@ -79,7 +86,7 @@ int i;
 /*printf("word to CheckWord: %s\n", word);*/
 if (word == NULL)
 return (0);
-for (i = 0; i <= 1; i++)
+for (i = 0; i <= 5; i++)
 {
 /*printf("strcmping %s\n", funcList[i].opcode);*/
 if (strcmp(word, funcList[i].opcode) == 0)
@@ -116,7 +123,7 @@ return (0);
 void goOp(char *opName, instruction_t funcList[], int lineNum, stack_t **head)
 {
 int i;
-for (i = 0; i <= 1; i++)
+for (i = 0; i <= 5; i++)
 {
 if (strcmp(opName, funcList[i].opcode) == 0)
 {
