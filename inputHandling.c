@@ -40,6 +40,7 @@ free(currentInstruction);
 }
 freeList(head);
 free(buf);
+fclose(file);
 }
 
 /**
