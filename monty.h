@@ -37,7 +37,8 @@ void (*f)(stack_t **stack, unsigned int line_number);
 
 extern char **currentInstruction;
 void getLinez(char *fileName);
-void setExternToInstruction(char *line, int lineNum, instruction_t funcList[]);
+void setExternToInstruction(char *line, int lineNum);
+void runOp(instruction_t funcList[], int lineNum, stack_t **head);
 void pushOp(stack_t **stack, unsigned int line_number);
 void pallOp(stack_t **stack, unsigned int line_number);
 void pintOp(stack_t **stack, unsigned int line_number);
@@ -45,7 +46,5 @@ void popOp(stack_t **stack, unsigned int line_number);
 void swapOp(stack_t **stack, unsigned int line_number);
 void addOp(stack_t **stack, unsigned int line_number);
 void nopOp(stack_t **stack, unsigned int line_number);
-int checkWord(char *word, instruction_t funcList[]);
-void goOp(char *opName, instruction_t funcList[], int lineNum, stack_t **head);
 void freeList(stack_t *head);
 #endif
