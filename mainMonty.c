@@ -21,5 +21,5 @@ dprintf(STDERR_FILENO, "USAGE: monty file\n");
 exit(EXIT_FAILURE);
 }
 getLinez(av[1]);
-return(EXIT_SUCCESS);
+return (EXIT_SUCCESS);
 }
