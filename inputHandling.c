@@ -12,8 +12,6 @@ int charCount = 0, lineNum = 0;
 size_t bufSize = 0;
 char *buf = NULL;
 FILE *file;
-stack_t *head = NULL;
-file = fopen(fileName, "r");
 instruction_t funcList[] = {
 {"push", pushOp},
 {"pall", pallOp},
@@ -22,6 +20,8 @@ instruction_t funcList[] = {
 {"add", addOp},
 {"nop", nopOp}
 };
+stack_t *head = NULL;
+file = fopen(fileName, "r");
 while (charCount != -1)
 {
 charCount = getline(&buf, &bufSize, file);
@@ -92,6 +92,7 @@ for (i = 0; i <= 5; i++)
 /*printf("strcmping %s\n", funcList[i].opcode);*/
 if (strcmp(word, funcList[i].opcode) == 0)
 {
+printf("w1: %s\n", word);
 currentInstruction[0] = strdup(word);
 /*printf("currentInstruction[0]: %s\n", currentInstruction[0]);*/
 if (strcmp(word, "push") == 0)
@@ -99,6 +100,7 @@ if (strcmp(word, "push") == 0)
 word = strtok(NULL, "\n ");
 if (strcmp(word, "0") == 0 || atoi(word) != 0)
 {
+printf("w2: %s\n", word);
 currentInstruction[1] = strdup(word);
 /*printf("currentInstruction[1]: %s\n", currentInstruction[1]);*/
 return (1);
