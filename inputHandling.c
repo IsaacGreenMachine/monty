@@ -15,12 +15,12 @@ FILE *file;
 stack_t *head = NULL;
 file = fopen(fileName, "r");
 instruction_t funcList[] = {
-	{"push", pushOp}, 
-	{"pall", pallOp},
-	{"pop", popOp},
-        {"swap", swapOp},
-	{"add", addOp},
-        {"nop", nopOp}
+{"push", pushOp},
+{"pall", pallOp},
+{"pop", popOp},
+{"swap", swapOp},
+{"add", addOp},
+{"nop", nopOp}
 };
 while (charCount != -1)
 {
