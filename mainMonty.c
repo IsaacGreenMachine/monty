@@ -14,8 +14,6 @@
  *	followed by a new line, and exit with the status EXIT_FAILURE
  * exit correctly (free stuff)
  * malloc failed checks: Error: malloc failed, exit failure
- * validating global[1] is within number range (>=0 and <= 9)
- * -0
  *
  */
 int main(int ac, char **av)

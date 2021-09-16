@@ -45,7 +45,7 @@ if (curIns != NULL)
 free(curIns);
 }
 freeList(head);
-/*free(buf);*/
+free(buf);
 fclose(file);
 }
 /**
@@ -60,6 +60,12 @@ void setGlobalVarArray(char *line, int lineNum, stack_t **head, FILE *file)
 {
 char *word;
 curIns = malloc(sizeof(char *) * 3);
+if (curIns == NULL)
+{
+dprintf(STDERR_FILENO, "Error: malloc failed\n");
+exitFunc(head, line, file);
+exit(EXIT_FAILURE);
+}
 word = strtok(line, "\n\t ");
 if (word == NULL)
 {
