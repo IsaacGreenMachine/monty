@@ -89,6 +89,7 @@ if (stack == NULL || *stack == NULL)
 {
 dprintf(STDERR_FILENO, "L%i: can't pop an empty stack\n", line_number);
 curIns[2] = strdup("OPFAIL");
+return;
 }
 a = *stack;
 b = a->next;
@@ -112,6 +113,7 @@ if (stack == NULL || *stack == NULL)
 {
 dprintf(STDERR_FILENO, "L%i: can't swap, stack too short\n", line_number);
 curIns[2] = strdup("OPFAIL");
+return;
 }
 a = *stack;
 b = a->next;
@@ -119,6 +121,7 @@ if (b == NULL)
 {
 dprintf(STDERR_FILENO, "L%i: can't swap, stack too short\n", line_number);
 curIns[2] = strdup("OPFAIL");
+return;
 }
 i = a->n;
 a->n = b->n;

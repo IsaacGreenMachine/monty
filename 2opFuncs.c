@@ -12,14 +12,16 @@ int i;
 if (stack == NULL || *stack == NULL)
 {
 dprintf(STDERR_FILENO, "L%i: can't add, stack too short\n", line_number);
-exit(EXIT_FAILURE);
+curIns[2] = strdup("OPFAIL");
+return;
 }
 a = *stack;
 b = a->next;
 if (b == NULL)
 {
 dprintf(STDERR_FILENO, "L%i: can't add, stack too short\n", line_number);
-exit(EXIT_FAILURE);
+curIns[2] = strdup("OPFAIL");
+return;
 }
 i = a->n;
 b->n += i;
