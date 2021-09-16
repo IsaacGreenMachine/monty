@@ -10,7 +10,8 @@ void pushOp(stack_t **stack, unsigned int line_number)
 stack_t *node, *new = malloc(sizeof(stack_t));
 if (new == NULL)
 {
-curIns[2] = strdup("FAILMALLOC");
+curIns[2] = strdup("OPFAIL");
+dprintf(STDERR_FILENO, "Error: malloc failed\n");
 return;
 }
 
@@ -67,7 +68,8 @@ stack_t *a = *stack;
 if (stack == NULL || *stack == NULL)
 {
 dprintf(STDERR_FILENO, "L%i: can't pint, stack empty\n", line_number);
-exit(EXIT_FAILURE);
+curIns[2] = strdup("OPFAIL");
+return;
 }
 else
 printf("%i\n", a->n);
@@ -86,7 +88,7 @@ stack_t *a, *b;
 if (stack == NULL || *stack == NULL)
 {
 dprintf(STDERR_FILENO, "L%i: can't pop an empty stack\n", line_number);
-exit(EXIT_FAILURE);
+curIns[2] = strdup("OPFAIL");
 }
 a = *stack;
 b = a->next;
@@ -109,14 +111,14 @@ int i;
 if (stack == NULL || *stack == NULL)
 {
 dprintf(STDERR_FILENO, "L%i: can't swap, stack too short\n", line_number);
-exit(EXIT_FAILURE);
+curIns[2] = strdup("OPFAIL");
 }
 a = *stack;
 b = a->next;
 if (b == NULL)
 {
 dprintf(STDERR_FILENO, "L%i: can't swap, stack too short\n", line_number);
-exit(EXIT_FAILURE);
+curIns[2] = strdup("OPFAIL");
 }
 i = a->n;
 a->n = b->n;

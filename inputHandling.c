@@ -120,9 +120,8 @@ if (strcmp(curIns[0], fL[i].opcode) == 0)
 fL[i].f(head, lNum);
 if (curIns[2] != NULL)
 {
-if (strcmp(curIns[2], "FAILMALLOC") == 0)
+if (strcmp(curIns[2], "OPFAIL") == 0)
 {
-dprintf(STDERR_FILENO, "Error: malloc failed\n");
 exitFunc(head, buf, file);
 exit(EXIT_FAILURE);
 }
