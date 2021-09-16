@@ -1,5 +1,5 @@
 #include "monty.h"
-char **currentInstruction;
+char **curIns;
 
 /**
  * getLinez - get lines from file and parse them
@@ -17,9 +17,14 @@ instruction_t funcList[] = {
 {"pop", popOp}, {"swap", swapOp},
 {"add", addOp}, {"nop", nopOp} };
 stack_t *head = NULL;
+
 file = fopen(fileName, "r");
 if (file == NULL)
+{
 dprintf(STDERR_FILENO, "Error: Can't open file %s\n", fileName);
+exitFunc(&head, buf, file);
+exit(EXIT_FAILURE);
+}
 while (charCount != -1)
 {
 charCount = getline(&buf, &bufSize, file);
@@ -27,79 +32,131 @@ charCount = getline(&buf, &bufSize, file);
 lineNum++;
 if (charCount == -1)
 break;
-setExternToInstruction(buf, lineNum);
+setGlobalVarArray(buf, lineNum, &head, file);
 /*printf("L%i%s\n", lineNum, buf);*/
 /*printf("currentInstruction[0]: %s\n", currentInstruction[0]);*/
-printf("currentInstruction[0]: %s\n", currentInstruction[0]);
-printf("currentInstruction[1]: %s\n", currentInstruction[1]);
-runOp(funcList, lineNum, &head);
-if (currentInstruction[0] != NULL) 
-free(currentInstruction[0]);
-if (currentInstruction[1] != NULL)
-free(currentInstruction[1]);
-if (currentInstruction != NULL)
-free(currentInstruction);
+/*printf("currentInstruction[1]: %s\n", currentInstruction[1]);*/
+rnOp(funcList, lineNum, &head, buf, file);
+if (curIns[0] != NULL)
+free(curIns[0]);
+if (curIns[1] != NULL)
+free(curIns[1]);
+if (curIns != NULL)
+free(curIns);
 }
 freeList(head);
-//free(buf);
+/*free(buf);*/
 fclose(file);
 }
-
 /**
- * setExternToInstruction - sets extern var [0] and [1] to correct value
+ * setGlobalVarArray - sets extern var [0] and [1] to correct value
  * @line: line from file
  * @lineNum: line Number
- *
+ * @head: head of stack
+ * @file: file currently open
  * Return: void
  */
-void setExternToInstruction(char *line, int lineNum)
+void setGlobalVarArray(char *line, int lineNum, stack_t **head, FILE *file)
 {
 char *word;
-currentInstruction = malloc(sizeof(char*) * 3);
+curIns = malloc(sizeof(char *) * 3);
 word = strtok(line, "\n\t ");
 if (word == NULL)
 {
-currentInstruction[0] = NULL;
-currentInstruction[1] = NULL;
+curIns[0] = NULL;
+curIns[1] = NULL;
 }
-else //word is not NULL
+else /*word is not NULL*/
 {
-currentInstruction[0] = word;
+curIns[0] = strdup(word);
 if (strcmp(word, "push") == 0)
 {
 word = strtok(NULL, "\n\t ");
-if (word == NULL || (strcmp(word, "0") != 0 && atoi(word) == 0))
+if (word == NULL || checkForChars(word) == -1)
 {
-dprintf(STDERR_FILENO, "L%i: usage: push integer", lineNum);
+dprintf(STDERR_FILENO, "L%i: usage: push integer\n", lineNum);
+exitFunc(head, line, file);
 exit(EXIT_FAILURE);
 }
 else
 {
-currentInstruction[1] = strdup(word);
+curIns[1] = strdup(word);
 }
 }
 else
-currentInstruction[1] = NULL;	
+curIns[1] = NULL;
 }
 }
 
-void runOp(instruction_t funcList[], int lineNum, stack_t **head)
+/**
+ * rnOp - runs an monty operation
+ * @fL: list of possible instructions
+ * @buf: line from file
+ * @lNum: line Number
+ * @head: head of stack
+ * @file: file currently open
+ * Return: void
+ */
+void rnOp(instruction_t fL[], int lNum, stack_t **head, char *buf, FILE *file)
 {
 int i;
+if (curIns[0] == NULL)
+return;
 for (i = 0; i <= 5; i++)
 {
-//printf("BEEP: currIns[0]:%s\n funcList[%i]:%s\n", currentInstruction[0], i, funcList[i].opcode);
-//printf("strcmp: %i\n", strcmp(currentInstruction[0], funcList[i].opcode));
-//printf("BOOP: currIns[1]:%s\n", currentInstruction[1]);
-if (strcmp(currentInstruction[0], funcList[i].opcode) == 0)
+/*printf("curIns[0]:%s\n fL[%i]:%s\n", curIns[0], i, funcList[i].opcode);*/
+/*printf("strcmp: %i\n", strcmp(currentInstruction[0], funcList[i].opcode));*/
+/*printf("BOOP: currIns[1]:%s\n", currentInstruction[1]);*/
+if (strcmp(curIns[0], fL[i].opcode) == 0)
 {
-funcList[i].f(head, lineNum);
+fL[i].f(head, lNum);
 break;
 }
 }
 if (i > 5)
 {
-dprintf(STDERR_FILENO, "L%i: unknown instruction %s\n", lineNum, currentInstruction[0]);
+dprintf(STDERR_FILENO, "L%i: unknown instruction %s\n", lNum, curIns[0]);
+exitFunc(head, buf, file);
 exit(EXIT_FAILURE);
 }
+}
+
+/**
+ * exitFunc - frees up malloced items from function
+ * @buf: line from file
+ * @stack: head of stack
+ * @file: file currently open
+ * Return: void
+ */
+void exitFunc(stack_t **stack, char *buf, FILE *file)
+{
+if (curIns[0] != NULL)
+free(curIns[0]);
+if (curIns[1] != NULL)
+free(curIns[1]);
+if (curIns != NULL)
+free(curIns);
+if (stack != NULL)
+freeList(*stack);
+free(buf);
+fclose(file);
+exit(EXIT_FAILURE);
+}
+
+/**
+ * checkForChars - checks if a string is an int
+ * @str: string to check
+ * Return: 0 or -1 if fails
+ */
+int checkForChars(char *str)
+{
+int i;
+char c;
+for (i = 0; str[i] != '\0'; i++)
+{
+c = str[i];
+if ((c == '-' && i != 0) || ((c < '0' || c > '9') && c != '-'))
+return (-1);
+}
+return (0);
 }

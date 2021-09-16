@@ -26,7 +26,7 @@ new->next = *stack;
 node->prev = new;
 }
 new->prev = NULL;
-new->n =  atoi(currentInstruction[1]);
+new->n =  atoi(curIns[1]);
 *stack = new;
 line_number++;
 line_number--;

@@ -35,10 +35,12 @@ char *opcode;
 void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
-extern char **currentInstruction;
+extern char **curIns;
 void getLinez(char *fileName);
-void setExternToInstruction(char *line, int lineNum);
-void runOp(instruction_t funcList[], int lineNum, stack_t **head);
+void setGlobalVarArray(char *line, int lineNum, stack_t **head, FILE *file);
+void rnOp(instruction_t fL[], int lNum, stack_t **head, char *buf, FILE *file);
+void exitFunc(stack_t **stack, char *buf, FILE *file);
+int checkForChars(char *str);
 void pushOp(stack_t **stack, unsigned int line_number);
 void pallOp(stack_t **stack, unsigned int line_number);
 void pintOp(stack_t **stack, unsigned int line_number);
