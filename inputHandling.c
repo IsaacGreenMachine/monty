@@ -1,5 +1,5 @@
 #include "monty.h"
-char **curIns;
+char **curIns = NULL;
 
 /**
  * getLinez - get lines from file and parse them
@@ -71,6 +71,7 @@ if (word == NULL)
 {
 curIns[0] = NULL;
 curIns[1] = NULL;
+curIns[2] = NULL;
 }
 else /*word is not NULL*/
 {
@@ -92,6 +93,7 @@ curIns[1] = strdup(word);
 else
 curIns[1] = NULL;
 }
+curIns[2] = NULL;
 }
 
 /**
