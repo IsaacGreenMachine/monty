@@ -145,12 +145,14 @@ exit(EXIT_FAILURE);
  */
 void exitFunc(stack_t **stack, char *buf, FILE *file)
 {
+if (curIns != NULL)
+{
+free(curIns);
 if (curIns[0] != NULL)
 free(curIns[0]);
 if (curIns[1] != NULL)
 free(curIns[1]);
-if (curIns != NULL)
-free(curIns);
+}
 if (stack != NULL)
 freeList(*stack);
 free(buf);
