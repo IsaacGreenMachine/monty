@@ -10,7 +10,7 @@ void pushOp(stack_t **stack, unsigned int line_number)
 stack_t *node, *new = malloc(sizeof(stack_t));
 if (new == NULL)
 {
-curIns[2] = "FAILMALLOC";
+curIns[2] = strdup("FAILMALLOC");
 return;
 }
 
