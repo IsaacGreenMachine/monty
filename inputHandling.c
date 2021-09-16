@@ -13,9 +13,9 @@ size_t bufSize = 0;
 char *buf = NULL;
 FILE *file;
 instruction_t funcList[] = {
-{"push", pushOp}, {"pall", pallOp},
-{"pop", popOp}, {"swap", swapOp},
-{"add", addOp}, {"nop", nopOp} };
+{"push", pushOp}, {"pall", pallOp}, {"pop", popOp},
+{"swap", swapOp}, {"add", addOp}, {"nop", nopOp}
+};
 stack_t *head = NULL;
 
 file = fopen(fileName, "r");
