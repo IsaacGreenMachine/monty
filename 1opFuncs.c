@@ -8,8 +8,11 @@
 void pushOp(stack_t **stack, unsigned int line_number)
 {
 stack_t *node, *new = malloc(sizeof(stack_t));
-/*if (new == NULL)*/
-/*return (NULL);*/
+if (new == NULL)
+{
+curIns[2] = "FAILMALLOC";
+return;
+}
 
 if (stack == NULL)
 node = NULL;

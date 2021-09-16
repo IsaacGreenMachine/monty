@@ -110,12 +110,21 @@ if (curIns[0] == NULL)
 return;
 for (i = 0; i <= 6; i++)
 {
-/*printf("curIns[0]:%s\n fL[%i]:%s\n", curIns[0], i, funcList[i].opcode);*/
-/*printf("strcmp: %i\n", strcmp(currentInstruction[0], funcList[i].opcode));*/
-/*printf("BOOP: currIns[1]:%s\n", currentInstruction[1]);*/
+/*printf("curIns[0]:%s\n fL[%i]:%s\n", curIns[0], i, fL[i].opcode);*/
+/*printf("strcmp: %i\n", strcmp(curIns[0], fL[i].opcode));*/
+/*printf("BOOP: currIns[1]:%s\n", curIns[1]);*/
 if (strcmp(curIns[0], fL[i].opcode) == 0)
 {
 fL[i].f(head, lNum);
+if (curIns[2] != NULL)
+{
+if (strcmp(curIns[2], "FAILMALLOC") == 0)
+{
+dprintf(STDERR_FILENO, "Error: malloc failed\n");
+exitFunc(head, buf, file);
+exit(EXIT_FAILURE);
+}
+}
 break;
 }
 }
