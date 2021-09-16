@@ -1,7 +1,5 @@
-```markdown
-# Project name
+# Monty
 
-(optional) overall project description.
 
 ## Important concepts
 Key takeaways/topics from project.
@@ -36,4 +34,3 @@ Short description
 Short description
 
 ---
-```
