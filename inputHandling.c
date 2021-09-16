@@ -14,7 +14,7 @@ char *buf = NULL;
 FILE *file;
 instruction_t funcList[] = {
 {"push", pushOp}, {"pall", pallOp}, {"pop", popOp},
-{"swap", swapOp}, {"add", addOp}, {"nop", nopOp}
+{"swap", swapOp}, {"add", addOp}, {"nop", nopOp}, {"pint", pintOp}
 };
 stack_t *head = NULL;
 
@@ -108,7 +108,7 @@ void rnOp(instruction_t fL[], int lNum, stack_t **head, char *buf, FILE *file)
 int i;
 if (curIns[0] == NULL)
 return;
-for (i = 0; i <= 5; i++)
+for (i = 0; i <= 6; i++)
 {
 /*printf("curIns[0]:%s\n fL[%i]:%s\n", curIns[0], i, funcList[i].opcode);*/
 /*printf("strcmp: %i\n", strcmp(currentInstruction[0], funcList[i].opcode));*/
@@ -119,7 +119,7 @@ fL[i].f(head, lNum);
 break;
 }
 }
-if (i > 5)
+if (i > 6)
 {
 dprintf(STDERR_FILENO, "L%i: unknown instruction %s\n", lNum, curIns[0]);
 exitFunc(head, buf, file);
